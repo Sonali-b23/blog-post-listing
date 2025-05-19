@@ -1,0 +1,23 @@
+/* BlogPostItem.css */
+.blog-post-item {
+  border: 1px solid #ddd;
+  padding: 20px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.blog-post-item h2 {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.blog-post-item p {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.date {
+  font-size: 0.85em;
+  color: gray;
+}
