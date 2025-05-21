@@ -1,0 +1,12 @@
+/* BlogPostList.css */
+.blog-post-list {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .blog-post-list {
+    grid-template-columns: 1fr;
+  }
+}
