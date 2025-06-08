@@ -1,75 +1,99 @@
+/* Base styles */
 .blogPostDetail {
-  max-width: 800px;
-  margin: 0 auto;
   background-color: #ffffff;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
   color: #333333;
+  line-height: 1.6;
 }
 
+/* Title */
 .title {
-  font-size: 36px;
   font-weight: bold;
+  color: #333333;
   margin-bottom: 20px;
 }
 
+/* Author and Date */
 .author {
-  font-size: 18px;
   color: #666666;
   margin-bottom: 10px;
 }
 
 .date {
-  font-size: 16px;
   color: #999999;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
-.content {
-  font-size: 18px;
-  line-height: 1.6;
-}
-
+/* Content */
 .content a {
   color: #007bff;
   text-decoration: underline;
 }
-
 .content a:hover {
   color: #0056b3;
 }
 
-.notFound {
-  text-align: center;
-  font-size: 18px;
-  color: #999;
-  padding: 2rem;
-}
+/* Responsive layouts */
 
-/* Responsive: Mobile */
-@media screen and (max-width: 768px) {
+/* Mobile: up to 768px */
+@media (max-width: 768px) {
   .blogPostDetail {
     padding: 20px;
+    max-width: 100%;
   }
-
   .title {
     font-size: 28px;
     margin-bottom: 15px;
   }
-
   .author {
     font-size: 14px;
     margin-bottom: 5px;
   }
-
   .date {
     font-size: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
   }
-
   .content {
     font-size: 14px;
     line-height: 1.4;
+    margin-top: 20px;
   }
+}
+
+/* Tablet: 769px to 1199px */
+/* Use mobile style, or slightly enhanced if desired */
+
+/* Desktop: 1200px and above */
+@media (min-width: 1200px) {
+  .blogPostDetail {
+    padding: 40px;
+    max-width: 800px;
+  }
+  .title {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  .author {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .date {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .content {
+    font-size: 18px;
+    margin-top: 30px;
+    line-height: 1.6;
+  }
+}
+
+/* Not found message styling */
+.notFound {
+  font-family: Arial, sans-serif;
+  color: #999999;
+  text-align: center;
+  padding: 40px 20px;
 }

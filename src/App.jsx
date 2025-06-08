@@ -1,41 +1,183 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import BlogPostDetail from './components/BlogPostDetail/BlogPostDetail'; // correct import
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Header from './components/Header/Header';
+import Home from './pages/Home';
+import CreatePost from './pages/CreatePost';
+import EditPost from './pages/EditPost';
+import NotFound from './pages/NotFound';
 
-// Simulated single blog post for testing
-const singlePost = {
-  title: 'Getting Started with React',
-  content: `
-    <p>Learn the basics of React and build your first application. This comprehensive guide will walk you through the fundamentals of React, including components, props, state, and more.</p>
-    <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">Official React Docs</a>
-  `,
-  author: 'John Smith',
-  date: '2023-01-01',
-};
-
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="app">
-        <header className="app-header">
-          <h1>My Blog</h1>
-        </header>
-        <main className="app-main">
-          {/* Render a single blog post */}
-          <BlogPostDetail
-            title={singlePost.title}
-            content={singlePost.content}
-            author={singlePost.author}
-            date={singlePost.date}
-          />
-        </main>
+      <Header />
+      <div className="container">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/create" component={CreatePost} />
+          <Route path="/edit/:id" component={EditPost} />
+          <Route compo
+          nent={NotFound} />
+        </Switch>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
+
+
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import BlogPostListPage from './pages/BlogPostListPage/BlogPostListPage';
+// import CreatePostPage from './pages/CreatePostPage/CreatePostPage';
+// import EditPostPage from './pages/EditPostPage/EditPostPage';
+// import BlogPostPage from './pages/BlogPostPage/BlogPostPage';
+
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<BlogPostListPage />} />
+//         <Route path="/create" element={<CreatePostPage />} />
+//         <Route path="/edit/:id" element={<EditPostPage />} />
+//         <Route path="/post/:id" element={<BlogPostPage />} />
+//       </Routes>
+//     </Router>
+//   );
+// }
+
+// export default App;
+
+// src/App.jsx
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import BlogPostListPage from './pages/BlogPostListPage/BlogPostListPage'; // Correct path
+// import CreatePostPage from './pages/CreatePostPage/CreatePostPage'; // Correct path
+// import EditPostPage from './pages/EditPostPage/EditPostPage'; // Correct path
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<BlogPostListPage />} />
+//         <Route path="/create" element={<CreatePostPage />} />
+//         <Route path="/edit/:id" element={<EditPostPage />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
+
+// src/App.jsx
+// import React from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import BlogPostListPage from './pages/BlogPostListPage/BlogPostListPage';
+// import BlogPostForm from './components/BlogPostForm/BlogPostForm';
+
+// const App = () => {
+//   const handleSubmit = (postData) => {
+//     console.log('Form submitted with data:', postData);
+//     // Handle saving new post or updating an existing one here
+//   };
+
+//   return (
+//     <Router>
+//       <Routes>
+//         <Route path="/" element={<BlogPostListPage />} />
+//         <Route path="/create" element={<BlogPostForm onSubmit={handleSubmit} />} />
+//         <Route path="/edit/:id" element={<BlogPostForm onSubmit={handleSubmit} />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
+// /src/App.js
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import Header from './components/Header/Header';
+// import Home from './pages/Home';
+// import CreatePost from './pages/CreatePost';
+// import EditPost from './pages/EditPost';
+// import NotFound from './pages/NotFound';
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <Header />
+//       <div className="container">
+//         <Switch>
+//           <Route exact path="/" component={Home} />
+//           <Route path="/create" component={CreatePost} />
+//           <Route path="/edit/:id" component={EditPost} />
+//           <Route component={NotFound} />
+//         </Switch>
+//       </div>
+//     </Router>
+//   );
+// };
+
+// export default App;
+
+
+
+// import React from 'react';
+// import BlogPostForm from './components/BlogPostForm';
+
+// const handleSubmit = (formData) => {
+//   console.log('Form submitted:', formData);
+//   // Here you would save the data or update your state/database
+// };
+
+// const existingPost = {
+//   title: 'Sample Title',
+//   content: 'Sample content...',
+//   author: 'Jane Doe',
+//   date: '2023-06-05',
+// };
+
+// function App() {
+//   return (
+//     <div>
+//       <h1>Create New Post</h1>
+//       <BlogPostForm onSubmit={handleSubmit} />
+      
+//       <h1>Edit Post</h1>
+//       <BlogPostForm post={existingPost} onSubmit={handleSubmit} />
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+// import React from 'react';
+// import BlogPostDetail from './components/BlogPostDetail';
+
+// const samplePost = {
+//   title: 'Understanding React Hooks',
+//   content: `<p>React hooks provide a powerful way to use state and lifecycle features in function components.</p>
+//   <p>Learn more about <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener noreferrer">React Hooks here</a>.</p>`,
+//   author: 'Jane Doe',
+//   date: '2023-04-20',
+// };
+
+// const App = () => (
+//   <div>
+//     <BlogPostDetail 
+//       title={samplePost.title}
+//       content={samplePost.content}
+//       author={samplePost.author}
+//       date={samplePost.date}
+//     />
+//   </div>
+// );
+
+// export default App;
+
 
 // import React from 'react';
 // import { BrowserRouter as Router } from 'react-router-dom';

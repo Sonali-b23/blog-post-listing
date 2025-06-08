@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './BlogPostDetail.module.css';
 
 const BlogPostDetail = ({ title, content, author, date }) => {
-
   if (!title || !content || !author || !date) {
     return <p className={styles.notFound}>Blog post not found.</p>;
   }
@@ -15,11 +14,9 @@ const BlogPostDetail = ({ title, content, author, date }) => {
 
   return (
     <article className={styles.blogPostDetail}>
-      <header>
-        <h1 className={styles.title}>{title}</h1>
-        <p className={styles.author}>By {author}</p>
-        <p className={styles.date}>Published on {formattedDate}</p>
-      </header>
+      <h1 className={styles.title}>{title}</h1>
+      <p className={styles.author}>By {author}</p>
+      <p className={styles.date}>Published on {formattedDate}</p>
       <section
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: content }}
