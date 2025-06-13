@@ -1,29 +1,63 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Header from './components/Header/Header';
-import Home from './pages/Home';
-import CreatePost from './pages/CreatePost';
-import EditPost from './pages/EditPost';
-import NotFound from './pages/NotFound';
+// src/App.jsx
+import React, { useState } from 'react';
+import BlogPostView from './pages/BlogPostView';
 
-const App = () => {
+function App() {
+  const [post, setPost] = useState({
+    id: 1,
+    title: 'Sample Blog Post',
+    content: 'This is a test blog post that can be deleted.'
+  });
+
+  const handlePostDeleted = (deletedPostId) => {
+    console.log(`Post with ID ${deletedPostId} deleted.`);
+    // Remove the post from the UI
+    setPost(null);
+  };
+
   return (
-    <Router>
-      <Header />
-      <div className="container">
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/create" component={CreatePost} />
-          <Route path="/edit/:id" component={EditPost} />
-          <Route compo
-          nent={NotFound} />
-        </Switch>
-      </div>
-    </Router>
+    <div className="App" style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+      <h1>My Blog</h1>
+      {post ? (
+        <BlogPostView post={post} onPostDeleted={handlePostDeleted} />
+      ) : (
+        <p>The post has been deleted.</p>
+      )}
+    </div>
   );
-};
+}
 
 export default App;
+
+
+
+
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import Header from './components/Header/Header';
+// import Home from './pages/Home';
+// import CreatePost from './pages/CreatePost';
+// import EditPost from './pages/EditPost';
+// import NotFound from './pages/NotFound';
+
+// const App = () => {
+//   return (
+//     <Router>
+//       <Header />
+//       <div className="container">
+//         <Switch>
+//           <Route exact path="/" component={Home} />
+//           <Route path="/create" component={CreatePost} />
+//           <Route path="/edit/:id" component={EditPost} />
+//           <Route compo
+//           nent={NotFound} />
+//         </Switch>
+//       </div>
+//     </Router>
+//   );
+// };
+
+// export default App;
 
 
 // import React from 'react';
