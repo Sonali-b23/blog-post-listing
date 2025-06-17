@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useParams, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useParams } from 'react-router-dom';
 import BlogPostList from './components/BlogPostList/BlogPostList';
 import BlogPostDetail from './components/BlogPostDetail/BlogPostDetail';
 import BlogPostCreate from './components/BlogPostForm/BlogPostCreate';
 import BlogPostEdit from './components/BlogPostForm/BlogPostEdit';
+import Layout from './components/Layout/Layout';
 import './App.css';
 
 // Sample blog posts data
@@ -83,23 +84,14 @@ function App() {
 
   return (
     <Router>
-      <div className="app">
-        <header className="app-header">
-          <h1>Blog Posts</h1>
-          <nav style={{ marginBottom: 20 }}>
-            <Link to="/" style={{ marginRight: 16 }}>Home</Link>
-            <Link to="/create">Create New Post</Link>
-          </nav>
-        </header>
-        <main className="app-main">
-          <Routes>
-            <Route path="/" element={<BlogPostList posts={posts} onDelete={handleDelete} />} />
-            <Route path="/create" element={<BlogPostCreate onCreate={handleCreate} />} />
-            <Route path="/edit/:postId" element={<BlogPostEdit posts={posts} onEdit={handleEdit} />} />
-            <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} />} />
-          </Routes>
-        </main>
-      </div>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<BlogPostList posts={posts} onDelete={handleDelete} />} />
+          <Route path="/create" element={<BlogPostCreate onCreate={handleCreate} />} />
+          <Route path="/edit/:postId" element={<BlogPostEdit posts={posts} onEdit={handleEdit} />} />
+          <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }
