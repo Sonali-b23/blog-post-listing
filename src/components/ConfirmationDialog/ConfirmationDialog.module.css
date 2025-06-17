@@ -1,0 +1,79 @@
+.overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dialog {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  padding: 32px 24px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  font-family: 'Arial', sans-serif;
+  outline: none;
+}
+.dialog h2 {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+.dialog p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 30px;
+}
+.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+}
+.cancelButton {
+  background: #ccc;
+  color: #111;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cancelButton:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+.deleteButton {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.deleteButton:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+.deleteButton:disabled {
+  background: #ffcccc;
+  cursor: not-allowed;
+}
+@media (max-width: 768px) {
+  .dialog {
+    width: 90%;
+    padding: 20px 10px;
+  }
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
