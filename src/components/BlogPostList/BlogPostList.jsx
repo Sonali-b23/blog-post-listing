@@ -17,6 +17,7 @@ const BlogPostList = ({ posts }) => {
       {posts.map((post) => (
         <BlogPostItem
           key={post.id}
+          id={post.id}
           title={post.title}
           summary={post.summary}
           date={post.date}
@@ -39,4 +40,4 @@ BlogPostList.propTypes = {
   ).isRequired,
 };
 
-export default BlogPostList; 
+export default BlogPostList;
