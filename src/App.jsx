@@ -1,34 +1,99 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import BlogPostDetail from './components/BlogPostDetail/BlogPostDetail'; // correct import
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useParams, Link } from 'react-router-dom';
+import BlogPostList from './components/BlogPostList/BlogPostList';
+import BlogPostDetail from './components/BlogPostDetail/BlogPostDetail';
+import BlogPostCreate from './components/BlogPostForm/BlogPostCreate';
+import BlogPostEdit from './components/BlogPostForm/BlogPostEdit';
 import './App.css';
 
-// Simulated single blog post for testing
-const singlePost = {
-  title: 'Getting Started with React',
-  content: `
-    <p>Learn the basics of React and build your first application. This comprehensive guide will walk you through the fundamentals of React, including components, props, state, and more.</p>
-    <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">Official React Docs</a>
-  `,
-  author: 'John Smith',
-  date: '2023-01-01',
-};
+// Sample blog posts data
+const initialPosts = [
+  {
+    id: '1',
+    title: 'Getting Started with React',
+    summary: 'Learn the basics of React and build your first application.',
+    content: `<p>Learn the basics of React and build your first application. This comprehensive guide will walk you through the fundamentals of React, including components, props, state, and more.</p><a href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>Official React Docs</a>` ,
+    author: 'John Doe',
+    date: '2023-01-01',
+    url: '/posts/1',
+  },
+  {
+    id: '2',
+    title: 'CSS Grid vs. Flexbox',
+    summary: 'A comparison of two powerful layout systems in CSS.',
+    content: `<p>A comparison of two powerful layout systems in CSS. Learn when to use Grid and when to use Flexbox for your layouts.</p>`,
+    author: 'Jane Smith',
+    date: '2023-02-15',
+    url: '/posts/2',
+  },
+  {
+    id: '3',
+    title: 'Accessibility in Web Development',
+    summary: 'Tips for making your web applications more accessible.',
+    content: `<p>Tips for making your web applications more accessible. Learn about ARIA roles, keyboard navigation, and more.</p>`,
+    author: 'Alex Lee',
+    date: '2023-03-10',
+    url: '/posts/3',
+  },
+];
+
+function BlogPostDetailWrapper({ posts }) {
+  const { postId } = useParams();
+  const post = posts.find((p) => p.id === postId);
+  if (!post) return <BlogPostDetail />;
+  return (
+    <BlogPostDetail
+      title={post.title}
+      content={post.content}
+      author={post.author}
+      date={post.date}
+    />
+  );
+}
 
 function App() {
+  const [posts, setPosts] = useState(initialPosts);
+
+  const handleCreate = (data) => {
+    const newId = (posts.length + 1).toString();
+    const newPost = {
+      ...data,
+      id: newId,
+      summary: data.content.replace(/<[^>]+>/g, '').slice(0, 100),
+      url: `/posts/${newId}`,
+    };
+    setPosts([newPost, ...posts]);
+  };
+
+  const handleEdit = (postId, data) => {
+    setPosts(posts.map((post) =>
+      post.id === postId
+        ? {
+            ...post,
+            ...data,
+            summary: data.content.replace(/<[^>]+>/g, '').slice(0, 100),
+          }
+        : post
+    ));
+  };
+
   return (
     <Router>
       <div className="app">
         <header className="app-header">
-          <h1>My Blog</h1>
+          <h1>Blog Posts</h1>
+          <nav style={{ marginBottom: 20 }}>
+            <Link to="/" style={{ marginRight: 16 }}>Home</Link>
+            <Link to="/create">Create New Post</Link>
+          </nav>
         </header>
         <main className="app-main">
-          {/* Render a single blog post */}
-          <BlogPostDetail
-            title={singlePost.title}
-            content={singlePost.content}
-            author={singlePost.author}
-            date={singlePost.date}
-          />
+          <Routes>
+            <Route path="/" element={<BlogPostList posts={posts} />} />
+            <Route path="/create" element={<BlogPostCreate onCreate={handleCreate} />} />
+            <Route path="/edit/:postId" element={<BlogPostEdit posts={posts} onEdit={handleEdit} />} />
+            <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} />} />
+          </Routes>
         </main>
       </div>
     </Router>
@@ -36,59 +101,4 @@ function App() {
 }
 
 export default App;
-
-// import React from 'react';
-// import { BrowserRouter as Router } from 'react-router-dom';
-// // import BlogPostList from './components/BlogPostList/BlogPostList';
-// import BlogPostDetail from './components/BlogPostDetail/BlogPostDetail';
-// import './App.css';
-
-// // Sample blog posts data
-// const samplePosts = [
-//   {
-//     id: '1',
-//     title: 'Getting Started with React',
-//     summary: 'Learn the basics of React and build your first application. This comprehensive guide will walk you through the fundamentals of React, including components, props, state, and more.',
-//     date: '2023-01-01',
-//     url: '/posts/1',
-//   },
-//   {
-//     id: '2',
-//     title: 'CSS Grid vs. Flexbox',
-//     summary: 'A comparison of two powerful layout systems in CSS. Understand when to use Grid vs Flexbox, and how they can work together to create complex layouts with ease.',
-//     date: '2023-02-15',
-//     url: '/posts/2',
-//   },
-//   {
-//     id: '3',
-//     title: 'Accessibility in Web Development',
-//     summary: 'Tips for making your web applications more accessible. Learn about ARIA attributes, semantic HTML, keyboard navigation, and other essential practices for inclusive web design.',
-//     date: '2023-03-10',
-//     url: '/posts/3',
-//   },
-//   {
-//     id: '4',
-//     title: 'Modern JavaScript Features',
-//     summary: 'Explore the latest features in JavaScript and how they can improve your code. From async/await to optional chaining, discover how modern JavaScript can make your code more elegant.',
-//     date: '2023-04-20',
-//     url: '/posts/4',
-//   },
-// ];
-
-// function App() {
-//   return (
-//     <Router>
-//       <div className="app">
-//         <header className="app-header">
-//           <h1>My Blog</h1>
-//         </header>
-//         <main className="app-main">
-//           <BlogPostList posts={samplePosts} />
-//         </main>
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
 

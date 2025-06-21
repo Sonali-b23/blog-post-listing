@@ -44,6 +44,25 @@
   margin: 0;
 }
 
+.editButton {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 18px;
+  background: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background: #0056b3;
+}
+
 /* Mobile View */
 @media (max-width: 768px) {
   .blogPostItem {
@@ -61,4 +80,4 @@
   .date {
     font-size: 12px;
   }
-} 
+}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './BlogPostItem.module.css';
 
-const BlogPostItem = ({ title, summary, date, url }) => {
+const BlogPostItem = ({ id, title, summary, date, url }) => {
   const formattedDate = new Date(date).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -17,15 +17,17 @@ const BlogPostItem = ({ title, summary, date, url }) => {
       </Link>
       <p className={styles.summary}>{summary}</p>
       <p className={styles.date}>Published on {formattedDate}</p>
+      <Link to={`/edit/${id}`} className={styles.editButton}>Edit</Link>
     </article>
   );
 };
 
 BlogPostItem.propTypes = {
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   title: PropTypes.string.isRequired,
   summary: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
 };
 
-export default BlogPostItem; 
+export default BlogPostItem;
