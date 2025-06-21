@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BlogPostItem from '../BlogPostItem/BlogPostItem';
 import styles from './BlogPostList.module.css';
 
-const BlogPostList = ({ posts }) => {
+const BlogPostList = ({ posts, onDelete }) => {
   if (!posts || posts.length === 0) {
     return (
       <div className={styles.emptyState}>
@@ -22,6 +22,7 @@ const BlogPostList = ({ posts }) => {
           summary={post.summary}
           date={post.date}
           url={post.url}
+          onDelete={onDelete}
         />
       ))}
     </div>
@@ -38,6 +39,7 @@ BlogPostList.propTypes = {
       url: PropTypes.string.isRequired,
     })
   ).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default BlogPostList;

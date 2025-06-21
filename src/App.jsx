@@ -77,6 +77,10 @@ function App() {
     ));
   };
 
+  const handleDelete = async (postId) => {
+    setPosts(posts.filter((post) => post.id !== postId));
+  };
+
   return (
     <Router>
       <div className="app">
@@ -89,7 +93,7 @@ function App() {
         </header>
         <main className="app-main">
           <Routes>
-            <Route path="/" element={<BlogPostList posts={posts} />} />
+            <Route path="/" element={<BlogPostList posts={posts} onDelete={handleDelete} />} />
             <Route path="/create" element={<BlogPostCreate onCreate={handleCreate} />} />
             <Route path="/edit/:postId" element={<BlogPostEdit posts={posts} onEdit={handleEdit} />} />
             <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} />} />
