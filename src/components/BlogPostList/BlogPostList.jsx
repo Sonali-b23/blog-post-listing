@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BlogPostItem from '../BlogPostItem/BlogPostItem';
 import styles from './BlogPostList.module.css';
 
-const BlogPostList = ({ posts, onDelete }) => {
+const BlogPostList = ({ posts, onDelete, comments, onAddComment }) => {
   if (!posts || posts.length === 0) {
     return (
       <div className={styles.emptyState}>
@@ -23,6 +23,8 @@ const BlogPostList = ({ posts, onDelete }) => {
           date={post.date}
           url={post.url}
           onDelete={onDelete}
+          comments={comments[post.id] || []}
+          onAddComment={(comment) => onAddComment(post.id, comment)}
         />
       ))}
     </div>
@@ -40,6 +42,8 @@ BlogPostList.propTypes = {
     })
   ).isRequired,
   onDelete: PropTypes.func.isRequired,
+  comments: PropTypes.object,
+  onAddComment: PropTypes.func,
 };
 
 export default BlogPostList;

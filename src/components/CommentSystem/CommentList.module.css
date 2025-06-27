@@ -1,0 +1,18 @@
+.commentList {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+.noComments {
+  color: #888;
+  font-size: 15px;
+  padding: 12px 0;
+}
+@media (max-width: 768px) {
+  .commentList {
+    margin-top: 20px;
+    margin-bottom: 16px;
+  }
+  .noComments {
+    font-size: 14px;
+  }
+}

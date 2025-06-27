@@ -4,8 +4,10 @@ import PropTypes from 'prop-types';
 import styles from './BlogPostItem.module.css';
 import DeleteButton from '../DeleteButton/DeleteButton';
 import ConfirmationDialog from '../ConfirmationDialog/ConfirmationDialog';
+import CommentList from '../CommentSystem/CommentList';
+import CommentForm from '../CommentSystem/CommentForm';
 
-const BlogPostItem = ({ id, title, summary, date, url, onDelete }) => {
+const BlogPostItem = ({ id, title, summary, date, url, onDelete, comments, onAddComment }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -39,6 +41,11 @@ const BlogPostItem = ({ id, title, summary, date, url, onDelete }) => {
         onConfirm={handleDelete}
         loading={deleting}
       />
+      {/* Comment system below each post in the list */}
+      <section className={styles.commentsSection}>
+        <CommentList comments={comments} />
+        <CommentForm onSubmit={onAddComment} />
+      </section>
     </article>
   );
 };
@@ -50,6 +57,8 @@ BlogPostItem.propTypes = {
   date: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
+  comments: PropTypes.array,
+  onAddComment: PropTypes.func,
 };
 
 export default BlogPostItem;

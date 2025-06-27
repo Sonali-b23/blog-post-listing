@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './BlogPostDetail.module.css';
+import CommentList from '../CommentSystem/CommentList';
+import CommentForm from '../CommentSystem/CommentForm';
 
-const BlogPostDetail = ({ title, content, author, date }) => {
+const BlogPostDetail = ({ title, content, author, date, comments = [], onAddComment }) => {
+  useEffect(() => {
+    console.log('BlogPostDetail comments prop:', comments);
+  }, [comments]);
 
   if (!title || !content || !author || !date) {
     return <p className={styles.notFound}>Blog post not found.</p>;
@@ -24,6 +29,11 @@ const BlogPostDetail = ({ title, content, author, date }) => {
         className={styles.content}
         dangerouslySetInnerHTML={{ __html: content }}
       />
+      <section className={styles.commentsSection}>
+        <h2 className={styles.commentsTitle}>Comments</h2>
+        <CommentList comments={comments} />
+        <CommentForm onSubmit={onAddComment} />
+      </section>
     </article>
   );
 };
