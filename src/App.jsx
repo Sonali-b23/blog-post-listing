@@ -38,7 +38,7 @@ const initialPosts = [
   },
 ];
 
-function BlogPostDetailWrapper({ posts }) {
+function BlogPostDetailWrapper({ posts, comments, onAddComment }) {
   const { postId } = useParams();
   const post = posts.find((p) => p.id === postId);
   if (!post) return <BlogPostDetail />;
@@ -48,12 +48,15 @@ function BlogPostDetailWrapper({ posts }) {
       content={post.content}
       author={post.author}
       date={post.date}
+      comments={comments[postId] || []}
+      onAddComment={(comment) => onAddComment(postId, comment)}
     />
   );
 }
 
 function App() {
   const [posts, setPosts] = useState(initialPosts);
+  const [comments, setComments] = useState({});
 
   const handleCreate = (data) => {
     const newId = (posts.length + 1).toString();
@@ -80,16 +83,31 @@ function App() {
 
   const handleDelete = async (postId) => {
     setPosts(posts.filter((post) => post.id !== postId));
+    setComments((prev) => {
+      const newComments = { ...prev };
+      delete newComments[postId];
+      return newComments;
+    });
+  };
+
+  const handleAddComment = (postId, comment) => {
+    setComments((prev) => ({
+      ...prev,
+      [postId]: [
+        ...(prev[postId] || []),
+        { ...comment, id: Date.now().toString(), date: new Date().toISOString() },
+      ],
+    }));
   };
 
   return (
     <Router>
       <Layout>
         <Routes>
-          <Route path="/" element={<BlogPostList posts={posts} onDelete={handleDelete} />} />
+          <Route path="/" element={<BlogPostList posts={posts} onDelete={handleDelete} comments={comments} onAddComment={handleAddComment} />} />
           <Route path="/create" element={<BlogPostCreate onCreate={handleCreate} />} />
           <Route path="/edit/:postId" element={<BlogPostEdit posts={posts} onEdit={handleEdit} />} />
-          <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} />} />
+          <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} comments={comments} onAddComment={handleAddComment} />} />
         </Routes>
       </Layout>
     </Router>
