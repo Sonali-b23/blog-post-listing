@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import BlogPostItem from '../BlogPostItem/BlogPostItem';
 import styles from './BlogPostList.module.css';
 
-const BlogPostList = ({ posts, onDelete, comments, onAddComment }) => {
+const BlogPostList = ({ posts, onDelete, comments, onAddComment, searchQuery }) => {
   if (!posts || posts.length === 0) {
     return (
-      <div className={styles.emptyState}>
-        <p>No blog posts available.</p>
+      <div className={styles.emptyState} aria-live="polite">
+        <p>No blog posts available{searchQuery ? ' for this search.' : '.'}</p>
       </div>
     );
   }
