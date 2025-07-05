@@ -57,6 +57,7 @@ function BlogPostDetailWrapper({ posts, comments, onAddComment }) {
 function App() {
   const [posts, setPosts] = useState(initialPosts);
   const [comments, setComments] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleCreate = (data) => {
     const newId = (posts.length + 1).toString();
@@ -100,11 +101,21 @@ function App() {
     }));
   };
 
+  // Search logic: filter posts by title or content, case-insensitive
+  const filteredPosts = posts.filter(post => {
+    if (!searchQuery.trim()) return true;
+    const q = searchQuery.trim().toLowerCase();
+    return (
+      post.title.toLowerCase().includes(q) ||
+      post.content.toLowerCase().includes(q)
+    );
+  });
+
   return (
     <Router>
-      <Layout>
+      <Layout onSearch={setSearchQuery}>
         <Routes>
-          <Route path="/" element={<BlogPostList posts={posts} onDelete={handleDelete} comments={comments} onAddComment={handleAddComment} />} />
+          <Route path="/" element={<BlogPostList posts={filteredPosts} onDelete={handleDelete} comments={comments} onAddComment={handleAddComment} searchQuery={searchQuery} />} />
           <Route path="/create" element={<BlogPostCreate onCreate={handleCreate} />} />
           <Route path="/edit/:postId" element={<BlogPostEdit posts={posts} onEdit={handleEdit} />} />
           <Route path="/posts/:postId" element={<BlogPostDetailWrapper posts={posts} comments={comments} onAddComment={handleAddComment} />} />
